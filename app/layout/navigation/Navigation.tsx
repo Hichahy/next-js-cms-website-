@@ -1,6 +1,21 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
+import useScreenSize from '@/app/utils/hooks/useScreenSize';
 
 const Navigation = () => {
+  const [showNav, setShowNav] = useState(false);
+  const screenSize = useScreenSize();
+
+  const handleNavbar = () => {
+    setShowNav((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (screenSize.width >= 1024) {
+      setShowNav(true);
+    }
+  }, [screenSize]);
+
   return (
     <nav className='flex items-center justify-between flex-wrap bg-teal-500 p-6'>
       <div className='flex items-center flex-shrink-0 text-white mr-6'>
@@ -16,7 +31,10 @@ const Navigation = () => {
         <span className='font-semibold text-xl tracking-tight'>lorem</span>
       </div>
       <div className='block lg:hidden'>
-        <button className='flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white'>
+        <button
+          onClick={handleNavbar}
+          className='flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white'
+        >
           <svg
             className='fill-current h-3 w-3'
             viewBox='0 0 20 20'
@@ -27,36 +45,38 @@ const Navigation = () => {
           </svg>
         </button>
       </div>
-      <div className='w-full block flex-grow lg:flex lg:items-center lg:w-auto'>
-        <div className='text-sm lg:flex-grow'>
-          <a
-            href='#responsive-header'
-            className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'
-          >
-            lorem
-          </a>
-          <a
-            href='#responsive-header'
-            className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'
-          >
-            lorem
-          </a>
-          <a
-            href='#responsive-header'
-            className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white'
-          >
-            lorem
-          </a>
+      {showNav && (
+        <div className='w-full block flex-grow lg:flex lg:items-center lg:w-auto'>
+          <div className='text-sm lg:flex-grow'>
+            <a
+              href='#responsive-header'
+              className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'
+            >
+              lorem
+            </a>
+            <a
+              href='#responsive-header'
+              className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'
+            >
+              lorem
+            </a>
+            <a
+              href='#responsive-header'
+              className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white'
+            >
+              lorem
+            </a>
+          </div>
+          <div>
+            <a
+              href='#'
+              className='inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0'
+            >
+              lorem
+            </a>
+          </div>
         </div>
-        <div>
-          <a
-            href='#'
-            className='inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0'
-          >
-            lorem
-          </a>
-        </div>
-      </div>
+      )}
     </nav>
   );
 };
